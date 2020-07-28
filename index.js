@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 var app = express();
 app.use(express.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
-const PORT = 8000;
+const PORT = 16632;
 const checksum_lib = require("./checksum.js");
 const qs = require("querystring");
 //Production
@@ -26,7 +26,7 @@ var PaytmConfig = {
 
 var txn_url = "https://securegw.paytm.in/order/process"; //production
 
-var callbackURL = "http://localhost:8000/callback";
+var callbackURL = "http://api.senspark.io:16632/callback";
 
 //CORS ACCESS CONTROL
 app.use((req, res, next) => {
@@ -50,7 +50,7 @@ app.get("/payment", (req, res) => {
   params["ORDER_ID"] = "TEST_" + new Date().getTime();
   params["CUST_ID"] = "Customer001";
   params["TXN_AMOUNT"] = "1.00";
-  params["CALLBACK_URL"] = "http://localhost:8000/callback";
+  params["CALLBACK_URL"] = "http://api.senspark.io:16632/callback";
   params["EMAIL"] = "abc@mailinator.com";
   params["MOBILE_NO"] = "7777777777";
 
@@ -93,4 +93,4 @@ app.post("/callback", (req, res) => {
 });
 
 var server = http.createServer(app);
-server.listen(8000);
+server.listen(PORT);
